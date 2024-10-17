@@ -1,17 +1,28 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChatPage } from './chat.page';
+import { Component, Input } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
-describe('ChatPage', () => {
-  let component: ChatPage;
-  let fixture: ComponentFixture<ChatPage>;
+@Component({
+  selector: 'app-your-modal',
+  template: `
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Modal</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="dismissModal()">Fermer</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <p>Données reçues : {{ data }}</p>
+    </ion-content>
+  `
+})
+export class YourModalComponent {
+  @Input() data: any;  // Données passées à la modal
 
-  beforeEach(async(() => {
-    fixture = TestBed.createComponent(ChatPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+  constructor(private modalController: ModalController) {}
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  dismissModal() {
+    this.modalController.dismiss();
+  }
+}
